@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show API Data (Based on URL)</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        #result { white-space: pre-wrap; margin-top: 20px; }
+        #api-url { margin-top: 10px; color: #333; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div id="api-url"></div>
+    <div id="result"></div>
+    <script>
+        // Get game type from URL query string
+        function getGameTypeFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            let game = params.get('game');
+            // Remove quotes if present
+            if (game) {
+                game = game.replace(/^"|"$/g, "");
+            }
+            return game || 'truth';
+        }
+
+        function fetchApi() {
+            const game = getGameTypeFromUrl();
+            // Construct API URL without the ?game="game" part
+            const url = `https://api.truthordarebot.xyz/v1/${game}`;
+            document.getElementById('api-url').textContent = url;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('result').textContent = 'Error fetching data!';
+                });
+        }
+
+        // Run on page load
+        fetchApi();
+    </script>
+</body>
+</html>
