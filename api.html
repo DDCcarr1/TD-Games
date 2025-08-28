@@ -6,11 +6,9 @@
     <style>
         body { font-family: Arial, sans-serif; margin: 40px; }
         #result { white-space: pre-wrap; margin-top: 20px; }
-        #api-url { margin-top: 10px; color: #333; font-size: 14px; }
     </style>
 </head>
 <body>
-    <div id="api-url"></div>
     <div id="result"></div>
     <script>
         // Get game type from URL query string
@@ -28,7 +26,6 @@
             const game = getGameTypeFromUrl();
             // Construct API URL without the ?game="game" part
             const url = `https://api.truthordarebot.xyz/v1/${game}`;
-            document.getElementById('api-url').textContent = url;
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
