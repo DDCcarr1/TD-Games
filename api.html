@@ -25,14 +25,14 @@
         function fetchApi() {
             const game = getGameTypeFromUrl();
             // Construct API URL without the ?game="game" part
-            const url = `https://api.truthordarebot.xyz/v1/${game}`;
+            const url = `https://api.truthordarebot.xyz/v1/${game}?rating=pg`;
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('result').textContent = JSON.stringify(data, null, 2);
                 })
                 .catch(error => {
-                    document.getElementById('result').textContent = 'Error fetching data!';
+                    document.getElementById('result').textContent = 'Could not fetch question, try again!';
                 });
         }
 
